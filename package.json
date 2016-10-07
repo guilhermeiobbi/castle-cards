@@ -1,0 +1,16 @@
+{
+  "name": "castle-cards",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": "6.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "debug": "~2.2.0",
+    "express": "~4.13.4",
+    "https": "^1.0.0",
+    "nodemon": "^1.10.2",
+    "pug": "^2.0.0-beta6"
+  }
+}

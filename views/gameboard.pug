@@ -1,0 +1,52 @@
+block head
+  html(lang='en')
+    head
+      meta(charset='utf-8')
+      meta(http-equiv='X-UA-Compatible' content='IE=edge')
+      meta(name='viewport' content='width=device-width, initial-scale=1')
+      meta(name='description' content='')
+      meta(name='author' content='')
+      title Castle Cards
+      link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet')
+      
+      div(class='col-lg-16')
+        - var cartas = JSON.parse({cards}.cards);
+        each val in cartas
+          div(class='col-lg-3')
+            ul(class='list-group')
+              - var obj = JSON.parse(val);
+              - var alvo = obj.alvo;
+              - var alvo_qtd = obj.alvo_qtd;
+              - var custo = obj.custo;
+              - var custo_qtd = obj.custo_qtd;
+              - var nome = obj.nome;
+              - var tipo = obj.tipo;
+              if tipo == 'troca_ataque'
+                - var alvo1 = obj.alvo1;
+                - var alvo2 = obj.alvo2;
+                - var alvo_qtd1 = obj.alvo_qtd.alvo_qtd1;
+                - var alvo_qtd2 = obj.alvo_qtd.alvo_qtd2;
+              else if tipo =='troca_defesa'
+                - var custo1 = obj.custo.custo1;
+                - var custo2 = obj.custo.custo2;
+                - var custo_qtd1 = obj.custo_qtd.custo_qtd1;
+                - var custo_qtd2 = obj.custo_qtd.custo_qtd2;
+              li(class='list-group-item')= nome
+                | #[a(href='#' class='label label-success' style='float: right;') Usar]
+              if tipo == 'troca_defesa'
+                li(class='list-group-item')= 'Custo: '
+                  |  #[span(class='badge') !{custo_qtd1} !{custo1}]
+                  span(class='badge') -!{custo_qtd2} !{custo2}
+              else 
+                li(class='list-group-item')= 'Custo: '
+                  |  #[span(class='badge') !{custo_qtd} !{custo}]
+              if tipo == 'defesa' || tipo == 'troca_defesa'
+                li(class='list-group-item')= 'Efeito: '
+                    | #[span(class='badge') +!{alvo_qtd} HP !{alvo}]
+              else if tipo == 'ataque'
+                li(class='list-group-item')= 'Ataque:'
+                  |  #[span(class='badge') !{alvo_qtd}]
+              else if tipo == 'troca_ataque'
+                li(class='list-group-item')= 'Efeito:'
+                  |  #[span(class='badge') -!{alvo_qtd1} HP C. Inimigo]
+                  span(class='badge') +!{alvo_qtd2} HP Castelo
