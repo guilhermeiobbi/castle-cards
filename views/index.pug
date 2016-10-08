@@ -1,2 +1,4 @@
-form(action='/api/getCards' method='GET')
-  button(type='submit') Pegar Cartas
+extends includes/layout.pug
+block content 
+  form(action='/api/getCards' method='GET')
+    button(type='submit') Pegar Cartas
