@@ -1,15 +1,18 @@
-span {
-    font-size: 10px !important;
+body { 
+    padding-top: 70px;
 }
-
-li {
-    font-size: 13px !important;
+div .cardboard {
+    padding-top: 250px;
 }
-
+.cardboard span {
+        font-size: 10px !important;
+}
+.cardboard li {
+        font-size: 13px !important;
+}
 .card-title {
-    font-size: 14px !important;
+        font-size: 14px !important;
 }
-
-label {
-    font-size: 60%;
+.cardboard label {
+        font-size: 60%;
 }
