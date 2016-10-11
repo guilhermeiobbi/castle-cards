@@ -1,4 +1,4 @@
-body(style='padding-top: 70px;')
+body
   nav(class='navbar navbar-default navbar-fixed-top' role='navigation')
     div(class='container')
       div(class='navbar-header')
@@ -8,4 +8,6 @@ body(style='padding-top: 70px;')
     block castles
       include ../castles.pug
     block cards
+    block modals
+      include ../modals.pug
     script(src='/socket.io/socket.io.js')

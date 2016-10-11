@@ -1,44 +1,44 @@
 extends includes/layout.pug
 block cards  
-  div(class='col-lg-16' style='padding-top: 250px;')
+  div(class='col-lg-16 cardboard')
     - var cartas = JSON.parse({cards}.cards);
     each val in cartas
       - var carta = JSON.parse(val);
       div(class='col-lg-3')
-        form(id=carta.id action='')
-          ul(class='list-group')
-          
-            -// nome da carta
-            li(class='list-group-item card-title')= carta.nome
-              |  #[span(class='label label-warning') !{carta.tipo}]
-              |  #[span(class='glyphicon glyphicon-info-sign' aria-hidden='true' data-toggle='tooltip' data-placement='top' title=carta.descricao)]
-              | #[input#id(type='hidden' value=carta.id)]
-              | #[button(type='submit' class='btn btn-success btn-xs' style='float: right;') Usar]
-            
-            -// custo da carta
-            li(class='list-group-item')= 'Custo: '
-              if carta.tipo == 'troca_defesa'
-                |  #[span(class='badge') !{carta.custo_qtd.custo_qtd1} !{carta.custo.custo1}]
-                span(class='badge') -!{carta.custo_qtd.custo_qtd2} !{carta.custo.custo2}
-              else 
-                |  #[span(class='badge') !{carta.custo_qtd} !{carta.custo}]
-            
-            -//ataque da carta
-            if carta.tipo == 'ataque'
-              li(class='list-group-item')= 'Ataque:'
-                |  #[span(class='badge') !{carta.alvo_qtd}]
+          form(id=carta.id action='')
+            div(class='panel panel-info')
+              -// nome da carta
+              div(class='panel-heading')
+                h3(class='panel-title')= carta.nome
+                  //- |  #[span(class='label label-warning') !{carta.tipo}]
+                  |  #[span(class='glyphicon glyphicon-info-sign' aria-hidden='true' data-toggle='tooltip' data-placement='top' title=carta.descricao)]
+                  | #[input#id(type='hidden' value=carta.id)]
+                  | #[button(type='submit' class='btn btn-success btn-xs' style='float: right;') Usar]
+              div(class='panel-body')      
+                -// custo da carta
+                p Custo: 
+                  if carta.tipo == 'troca_defesa'
+                    |  #[span(class='badge') !{carta.custo_qtd.custo_qtd1} !{carta.custo.custo1}]
+                    span(class='badge') -!{carta.custo_qtd.custo_qtd2} !{carta.custo.custo2}
+                  else 
+                    |  #[span(class='badge') !{carta.custo_qtd} !{carta.custo}]
+                
+                -//ataque da carta
+                if carta.tipo == 'ataque'
+                  p Ataque:
+                    |  #[span(class='badge') !{carta.alvo_qtd}]
 
-            -// efeito da carta
-            if carta.tipo != 'ataque'
-              li(class='list-group-item')= 'Efeito: '
-                if carta.tipo == 'defesa' || carta.tipo == 'troca_defesa'
-                  | #[span(class='badge') +!{carta.alvo_qtd} HP !{carta.alvo}]
-                else if carta.tipo == 'troca_ataque'
-                  |  #[span(class='badge') -!{carta.alvo_qtd.alvo_qtd1} HP c. inimigo]
-                  span(class='badge') +!{carta.alvo_qtd.alvo_qtd2} HP !{carta.alvo.alvo2}
-                else if carta.tipo == 'recurso' || carta.tipo == 'magia'
-                  | #[span(class='badge') +!{carta.alvo_qtd} !{carta.alvo}]
-                else if carta.tipo == 'magia_ataque'
-                  | #[span(class='badge') -!{carta.alvo_qtd} !{carta.alvo} do inimigo]
-                else if carta.tipo == 'recursos_multiplos'
-                  | #[span(class='badge') +!{carta.alvo_qtd} !{carta.alvo.alvo1}, !{carta.alvo.alvo2}, !{carta.alvo.alvo3}]
+                -// efeito da carta
+                if carta.tipo != 'ataque'
+                  p Efeito:
+                    if carta.tipo == 'defesa' || carta.tipo == 'troca_defesa'
+                      |  #[span(class='badge') +!{carta.alvo_qtd} HP !{carta.alvo}]
+                    else if carta.tipo == 'troca_ataque'
+                      |  #[span(class='badge') -!{carta.alvo_qtd.alvo_qtd1} HP c. inimigo]
+                      span(class='badge') +!{carta.alvo_qtd.alvo_qtd2} HP !{carta.alvo.alvo2}
+                    else if carta.tipo == 'recurso' || carta.tipo == 'magia'
+                      |  #[span(class='badge') +!{carta.alvo_qtd} !{carta.alvo}]
+                    else if carta.tipo == 'magia_ataque'
+                      |  #[span(class='badge') -!{carta.alvo_qtd} !{carta.alvo} do inimigo]
+                    else if carta.tipo == 'recursos_multiplos'
+                      |  #[span(class='badge') +!{carta.alvo_qtd} !{carta.alvo.alvo1}, !{carta.alvo.alvo2}, !{carta.alvo.alvo3}]

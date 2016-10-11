@@ -1,15 +1,52 @@
 div(class='col-lg-14')
-  div(class='col-lg-6')
-    div(class='progress')
-      div#myCastle(class='progress-bar' role='progressbar' aria-valuenow='50' 
-                    aria-valuemin='0' aria-valuemax='100' style='width: 50%') 50
-    div(class='progress')    
-      div#myWall(class='progress-bar' role='progressbar' aria-valuenow='0' 
-                    aria-valuemin='0' aria-valuemax='100') 0
-  div(class='col-lg-6')
-    div(class='progress')    
-      div#enemyCastle(class='progress-bar' role='progressbar' aria-valuenow='50' 
-                    aria-valuemin='0' aria-valuemax='100' style='width: 50%') 50
-    div(class='progress')    
-      div#enemyWall(class='progress-bar' role='progressbar' aria-valuenow='0' 
-                    aria-valuemin='0' aria-valuemax='100') 0
+  div#myInfo(class='col-lg-6')
+    div(class='panel panel-default')
+      div(class='panel-heading') Você
+      div(class='panel-body')
+        div(class='progress')
+          div#myCastle(class='progress-bar progress-bar-success progress-bar-striped' role='progressbar' aria-valuenow='50' 
+                        aria-valuemin='0' aria-valuemax='100' style='width: 50%') 50
+        div(class='progress')    
+          div#myWall(class='progress-bar progress-bar-warning progress-bar-striped' role='progressbar' aria-valuenow='0' 
+                        aria-valuemin='0' aria-valuemax='100') 0
+        div(class='col-lg-4')
+          div(class='panel')
+            ul(class='list-group')
+              li(class='list-group-item list-group-item-info') Mago #[span(class='badge') 1]
+              li(class='list-group-item list-group-item-info') Cristal #[span(class='badge') 1]
+        div(class='col-lg-4')
+          div(class='panel')
+            ul(class='list-group')
+              li(class='list-group-item list-group-item-info') Soldado #[span(class='badge') 1]
+              li(class='list-group-item list-group-item-info') Arma #[span(class='badge') 1]
+        div(class='col-lg-4')
+          div(class='panel')
+            ul(class='list-group')
+              li(class='list-group-item list-group-item-info') Construtor #[span(class='badge') 1]
+              li(class='list-group-item list-group-item-info') Tijolo #[span(class='badge') 1]
+
+  div#enemyInfo(class='col-lg-6')
+    div(class='panel panel-default')
+      div(class='panel-heading') Oponente
+      div(class='panel-body')
+        div(class='progress')    
+          div#enemyCastle(class='progress-bar progress-bar-success progress-bar-striped' role='progressbar' aria-valuenow='50' 
+                        aria-valuemin='0' aria-valuemax='100' style='width: 50%') 50
+        div(class='progress')    
+          div#enemyWall(class='progress-bar progress-bar-warning progress-bar-striped' role='progressbar' aria-valuenow='0' 
+                        aria-valuemin='0' aria-valuemax='100') 0
+        div(class='col-lg-4')
+          div(class='panel')
+            ul(class='list-group')
+              li(class='list-group-item list-group-item-danger') Mago #[span(class='badge') 1]
+              li(class='list-group-item list-group-item-danger') Cristal #[span(class='badge') 1]
+        div(class='col-lg-4')
+          div(class='panel')
+            ul(class='list-group')
+              li(class='list-group-item list-group-item-danger') Soldado #[span(class='badge') 1]
+              li(class='list-group-item list-group-item-danger') Arma #[span(class='badge') 1]
+        div(class='col-lg-4')
+          div(class='panel')
+            ul(class='list-group')
+              li(class='list-group-item list-group-item-danger') Construtor #[span(class='badge') 1]
+              li(class='list-group-item list-group-item-danger') Tijolo #[span(class='badge') 1]
