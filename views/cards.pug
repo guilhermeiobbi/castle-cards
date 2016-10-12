@@ -42,3 +42,5 @@ block cards
                       |  #[span(class='badge') -!{carta.alvo_qtd} !{carta.alvo} do inimigo]
                     else if carta.tipo == 'recursos_multiplos'
                       |  #[span(class='badge') +!{carta.alvo_qtd} !{carta.alvo.alvo1}, !{carta.alvo.alvo2}, !{carta.alvo.alvo3}]
+                    else if carta.tipo == 'magia_recurso'
+                      |  #[span(class='badge') + !{carta.alvo}]

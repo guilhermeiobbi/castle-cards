@@ -283,7 +283,7 @@ var cards =
         "custo" : "armas",
         "custo_qtd" : 1,
         "nome" : "Somente Armas",
-        "tipo" : "magia",
+        "tipo" : "magia_recurso",
         "descricao" : "Todos os recursos produzirão Armas somente no próximo turno"
     },
     "somente_cristais" : {
@@ -293,7 +293,7 @@ var cards =
         "custo" : "cristais",
         "custo_qtd" : 1,
         "nome" : "Somente Cristais",
-        "tipo" : "magia",
+        "tipo" : "magia_recurso",
         "descricao" : "Todos os recursos produzirão Cristais somente no próximo turno"
     },
     "somente_tijolos" : {
@@ -303,7 +303,7 @@ var cards =
         "custo" : "tijolos",
         "custo_qtd" : 1,
         "nome" : "Somente Tijolos",
-        "tipo" : "magia",
+        "tipo" : "magia_recurso",
         "descricao" : "Todos os recursos produzirão Tijolos somente no próximo turno"
     },
     "taverna" : {

@@ -42,6 +42,26 @@ function pagarCusto(custo, custo_qtd) {
     }
 }
 
+function adaptReturnObj(returnObj) {
+    var returnObj = {};
+
+    returnObj.enemyCastle = enemyCastle;
+    returnObj.enemyWall = enemyWall;
+    
+    returnObj.myCastle = myCastle;
+    returnObj.myWall = myWall;
+    
+    returnObj.myConstructors = myConstructors;
+    returnObj.mySoldiers = mySoldiers;
+    returnObj.myMages = myMages;
+
+    returnObj.myCrystals = myCrystals;
+    returnObj.myBricks = myBricks;
+    returnObj.myWeapons = myWeapons;
+
+    return returnObj;
+}
+
 module.exports = {
     initiliazeVars: function(){
         myWall         = 0;
@@ -74,7 +94,6 @@ module.exports = {
     },
 
     usarCarta: function(idCarta) {
-        var returnObj = {};
         var carta = getCarta(idCarta);
         
         switch(carta.tipo) {
@@ -94,9 +113,7 @@ module.exports = {
                 } else if(carta.alvo == 'castelo_inimigo') {
                     enemyCastle -= carta.alvo_qtd;
                 }
-
-                returnObj.enemyCastle = enemyCastle;
-                returnObj.enemyWall = enemyWall;
+                break;
             }
             
             case 'defesa': {
@@ -105,9 +122,60 @@ module.exports = {
                 } else if(carta.alvo == 'muro') {
                     myWall += carta.alvo_qtd;
                 }
+                break;
+            }
 
-                returnObj.myCastle = myCastle;
-                returnObj.myWall = myWall;
+            case 'magia': {
+                if(carta.alvo == 'cristais') {
+                    myCrystals += carta.alvo_qtd;
+                } else if(carta.alvo == 'armas') {
+                    myWeapons += carta.alvo_qtd;
+                } else if(carta.alvo == 'tijolos') {
+                    myBricks += carta.alvo_qtd;
+                }
+                break;
+            }
+
+            case 'magia_recurso': {
+
+            }
+
+            case 'recurso': {
+                if(carta.alvo == 'construtor') {
+                    myConstructors += carta.alvo_qtd;
+                } else if(carta.alvo == 'soldado') {
+                    mySoldiers += carta.alvo_qtd;
+                } else if(carta.alvo == 'mago') {
+                    myMages += carta.alvo_qtd;
+                }
+                break;
+            }
+
+            case 'recursos_multiplos': {
+                myConstructors += carta.alvo_qtd;
+                mySoldiers += carta.alvo_qtd;
+                myMages += carta.alvo_qtd;
+                break;
+            }
+
+            case 'magia_ataque': {
+                if (carta.alvo == 'cristais') {
+                    enemyCrystals -= carta.alvo_qtd;
+                    if(enemyCrystals < 0) {
+                        enemyCrystals = 0;
+                    }
+                } else if (carta.alvo == 'tijolos') {
+                    enemyBricks -= carta.alvo_qtd;
+                    if(enemyBricks < 0) {
+                        enemyBricks = 0;
+                    }
+                } else if (carta.alvo == 'armas') {
+                    enemyWeapons -= carta.alvo_qtd;
+                    if(enemyWeapons < 0) {
+                        enemyWeapons = 0;
+                    }
+                }
+                break;
             }
 
             default: {
@@ -127,7 +195,6 @@ module.exports = {
                 }
             }
         }
-
-        return returnObj;
+        return adaptReturnObj();
     }
 }
