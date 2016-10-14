@@ -4,15 +4,21 @@ body {
 div .cardboard {
     padding-top: 250px;
 }
+.cardboard .panel-title {
+        font-size: 14px;
+}
+.cardboard .badge {
+        float: right;
+}
 .cardboard span {
-        font-size: 10px !important;
+        font-size: 12px !important;
 }
 .cardboard li {
         font-size: 13px !important;
 }
-.card-title {
-        font-size: 14px !important;
-}
 .cardboard label {
         font-size: 60%;
+}
+.panel-body p {
+        font-size: 11px;
 }
