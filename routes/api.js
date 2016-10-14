@@ -3,9 +3,11 @@ var router    = express.Router();
 var game      = require('./services/game');
 
 router.get('/newGame', function(req, res) {
-    game.initiliazeVars();
+    var gameCfg = game.initializeVars();
     var selectedCards = game.getRandomCards();
-    res.render('cards', {cards: JSON.stringify(selectedCards)});
+    var obj = {game:  JSON.parse(gameCfg),
+               cards: JSON.parse(JSON.stringify(selectedCards))};
+    res.render('page', obj);
 });
 
 module.exports = router;
