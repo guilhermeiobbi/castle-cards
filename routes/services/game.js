@@ -1,89 +1,74 @@
 var jsonCards = require('../cards/all-cards').cards;
 
-// Vars do meu castelo
-var myWall;
-var myCastle;
-var myMages;
-var myCrystals;
-var mySoldiers;
-var myWeapons;
-var myConstructors;
-var myBricks;
-
-// Vars do castelo do inimigo
-var enemyWall;
-var enemyCastle;
-var enemyMages;
-var enemyCrystals;
-var enemySoldiers;
-var enemyWeapons;
-var enemyConstructors;
-var enemyBricks;
-
-function getCarta(id) {
-        var keys = Object.keys(jsonCards);
-        for(i = 0; i < keys.length; i++) {
-            var nomeCarta = keys[i];
-            var carta = jsonCards[nomeCarta];
-            if(carta.id == id) {
-                console.log('Nome: ' + carta.nome);
-                return carta;
-            }
-        }
+function Stats() {
+    this.wall = {nome: 'Muro', valor: 0};
+    this.castle = {nome: 'Castelo', valor: 50};
+    this.mages = {nome: 'Mago', valor: 1},
+    this.crystals = {nome: 'Cristal', valor: 0},
+    this.soldiers = {nome: 'Soldado', valor: 1},
+    this.weapons = {nome: 'Armas', valor: 0},
+    this.constructors = {nome: 'Construtor', valor: 1},
+    this.bricks = {nome: 'Tijolo', valor: 0}
+    return this;
 }
 
-function pagarCusto(custo, custo_qtd) {
-    if(custo == 'cristais') {
-        myCrystals -= custo_qtd;
-    } else if(custo == 'armas') {
-        myWeapons -= custo_qtd;
-    } else if(custo == 'tijolos'){
-        myBricks -= custo_qtd;
+var game = 
+{
+    player1: {}, 
+    player2: {}
+};
+
+function getCarta(id) {
+    var keys = Object.keys(jsonCards);
+    for(i = 0; i < keys.length; i++) {
+        var nomeCarta = keys[i];
+        var carta = jsonCards[nomeCarta];
+        if(carta.id == id) {
+            console.log('Nome da Carta: ' + carta.nome);
+            return carta;
+        }
     }
 }
 
-function adaptReturnObj(returnObj) {
-    var returnObj = {};
-
-    returnObj.enemyCastle = enemyCastle;
-    returnObj.enemyWall = enemyWall;
-    
-    returnObj.myCastle = myCastle;
-    returnObj.myWall = myWall;
-    
-    returnObj.myConstructors = myConstructors;
-    returnObj.mySoldiers = mySoldiers;
-    returnObj.myMages = myMages;
-
-    returnObj.myCrystals = myCrystals;
-    returnObj.myBricks = myBricks;
-    returnObj.myWeapons = myWeapons;
-
-    return returnObj;
+function pagarCusto(custo, custo_qtd, player) {
+    if(custo == 'cristais') {
+        game[player].stats.crystals.valor -= custo_qtd;
+    } else if(custo == 'armas') {
+        game[player].stats.weapons.valor -= custo_qtd;
+    } else if(custo == 'tijolos'){
+        game[player].stats.bricks.valor -= custo_qtd;
+    }
+    console.log('Jogador: '+player+' pagou: ' +custo_qtd+' '+custo);
 }
 
 module.exports = {
-    initiliazeVars: function(){
-        myWall         = 0;
-        myCastle       = 50;
-        myMages        = 1;
-        myCrystals     = 0;
-        mySoldiers     = 1;
-        myWeapons      = 0;
-        myConstructors = 1;
-        myBricks       = 0;
+    initializeVars: function(){
+        arr = [];
 
-        enemyWall         = 0;
-        enemyCastle       = 50;
-        enemyMages        = 1;
-        enemyCrystals     = 0;
-        enemySoldiers     = 1;
-        enemyWeapons      = 0;
-        enemyConstructors = 1;
-        enemyBricks       = 0;
+        game.player1.stats = new Stats();
+        game.player2.stats = new Stats();
+        
+        arr.push(JSON.stringify(game));
+
+        return arr;
     },
 
-    getRandomCards: function () {
+    hasResources: function (id, player) {
+        
+        var carta = getCarta(id);
+
+        console.log('game :'+JSON.stringify(game[player]));
+        
+        if(carta.custo == 'cristais') {
+            return game[player].stats.crystals.valor >= carta.custo_qtd;
+        } else if(carta.custo == 'armas') {
+            return game[player].stats.weapons.valor >= carta.custo_qtd;
+        } else if(carta.custo == 'tijolos') {
+            return game[player].stats.bricks.valor >= carta.custo_qtd;
+        }
+    },
+
+    getRandomCards: function() {
         var arr = [];
         for (i = 0; i < 8; i++) {
             var keys = Object.keys(jsonCards);
@@ -93,108 +78,126 @@ module.exports = {
         return arr;
     },
 
-    usarCarta: function(idCarta) {
-        var carta = getCarta(idCarta);
+    passaTurno: function(player) {
+        var me = game[player].stats;
         
+        me.crystals.valor += me.mages.valor;
+        me.bricks.valor   += me.constructors.valor;
+        me.weapons.valor  += me.soldiers.valor;
+
+        return game;
+    },
+
+    usarCarta: function(idCarta, player) {
+        var carta = getCarta(idCarta);
+        var me = game[player].stats;
+        var enemy;
+        
+        if(player == 'player1') {
+            enemy = game.player2.stats;
+        } else {
+            enemy = game.player1.stats;
+        }
+
         switch(carta.tipo) {
             case 'ataque': {
                 if(carta.alvo == 'inimigo') {
-                    // Se existir muro, ataca o muro
-                    if(enemyWall > 0) {
-                        enemyWall -= carta.alvo_qtd;
-                        // Se o dano causado for maior que o HP do muro, tira o resto do dano direto do Castelo e zera o HP do muro
-                        if(enemyWall < 0) {
-                            enemyCastle += enemyWall;
-                            enemyWall = 0;
+                    if(enemy.wall.valor > 0) {
+                        enemy.wall.valor -= carta.alvo_qtd;
+                        if(enemy.wall.valor < 0) {
+                            enemy.castle.valor += game.stats.wall;
+                            enemy.wall.valor = 0;
                         }
-                    } else if(enemyWall == 0) {
-                        enemyCastle -= carta.alvo_qtd;
+                    } else if(enemy.wall.valor == 0) {
+                        enemy.castle.valor -= carta.alvo_qtd;
                     }
                 } else if(carta.alvo == 'castelo_inimigo') {
-                    enemyCastle -= carta.alvo_qtd;
+                    enemy.castle.valor -= carta.alvo_qtd;
                 }
                 break;
+            }
+
+            case 'troca_defesa': {
+                //TODO: implementar
             }
             
             case 'defesa': {
                 if(carta.alvo == 'castelo') {
-                    myCastle += carta.alvo_qtd;
+                    me.castle.valor += carta.alvo_qtd;
                 } else if(carta.alvo == 'muro') {
-                    myWall += carta.alvo_qtd;
+                    me.wall.valor += carta.alvo_qtd;
                 }
                 break;
             }
 
             case 'magia': {
                 if(carta.alvo == 'cristais') {
-                    myCrystals += carta.alvo_qtd;
+                    me.crystals.valor += carta.alvo_qtd;
                 } else if(carta.alvo == 'armas') {
-                    myWeapons += carta.alvo_qtd;
+                    me.weapons.valor += carta.alvo_qtd;
                 } else if(carta.alvo == 'tijolos') {
-                    myBricks += carta.alvo_qtd;
+                    me.bricks.valor += carta.alvo_qtd;
                 }
                 break;
             }
 
             case 'magia_recurso': {
-
+                //TODO: implementar
             }
 
             case 'recurso': {
                 if(carta.alvo == 'construtor') {
-                    myConstructors += carta.alvo_qtd;
+                    me.constructors.valor += carta.alvo_qtd;
                 } else if(carta.alvo == 'soldado') {
-                    mySoldiers += carta.alvo_qtd;
+                    me.soldiers.valor += carta.alvo_qtd;
                 } else if(carta.alvo == 'mago') {
-                    myMages += carta.alvo_qtd;
+                    me.mages.valor += carta.alvo_qtd;
                 }
                 break;
             }
 
             case 'recursos_multiplos': {
-                myConstructors += carta.alvo_qtd;
-                mySoldiers += carta.alvo_qtd;
-                myMages += carta.alvo_qtd;
+                me.constructors.valor += carta.alvo_qtd;
+                me.soldiers.valor += carta.alvo_qtd;
+                me.mages.valor += carta.alvo_qtd;
                 break;
             }
 
             case 'magia_ataque': {
                 if (carta.alvo == 'cristais') {
-                    enemyCrystals -= carta.alvo_qtd;
-                    if(enemyCrystals < 0) {
-                        enemyCrystals = 0;
+                    enemy.crystals.valor -= carta.alvo_qtd;
+                    if(enemy.crystals.valor < 0) {
+                        enemy.crystals.valor = 0;
                     }
                 } else if (carta.alvo == 'tijolos') {
-                    enemyBricks -= carta.alvo_qtd;
-                    if(enemyBricks < 0) {
-                        enemyBricks = 0;
+                    enemy.bricks.valor -= carta.alvo_qtd;
+                    if(enemy.bricks.valor < 0) {
+                        enemy.bricks.valor = 0;
                     }
                 } else if (carta.alvo == 'armas') {
-                    enemyWeapons -= carta.alvo_qtd;
-                    if(enemyWeapons < 0) {
-                        enemyWeapons = 0;
+                    enemy.weapons.valor -= carta.alvo_qtd;
+                    if(enemy.weapons.valor < 0) {
+                        enemy.weapons.valor = 0;
                     }
                 }
                 break;
             }
-
-            default: {
-                // Valida e aplica o(s) valor(es) do(s) custo(s) da carta
-                if(carta.nome instanceof Object) {
-                    // Se houver mais de um custo (custo: {custo1, custo2} )
-                    var size = Object.keys(carta.custo).length;
-                    var custo;
-                    var qtd;
-                    for(i = 1; i <= size; i++) {
-                        custo = 'custo'+i;
-                        qtd  = 'custo_qtd'+i;
-                        pagarCusto(carta.custo[custo], carta.custo_qtd[qtd]);
-                    }
-                } else {
-                    pagarCusto(carta.custo, carta.custo_qtd);
-                }
-            }
         }
-        return adaptReturnObj();
+        // Valida e aplica o(s) valor(es) do(s) custo(s) da carta
+        if(carta.nome instanceof Object) {
+            // Se houver mais de um custo (custo: {custo1, custo2} )
+            var size = Object.keys(carta.custo).length;
+            var custo;
+            var qtd;
+            for(i = 1; i <= size; i++) {
+                custo = 'custo'+i;
+                qtd  = 'custo_qtd'+i;
+                pagarCusto(carta.custo[custo], carta.custo_qtd[qtd], player);
+            }
+        } else {
+            pagarCusto(carta.custo, carta.custo_qtd, player);
+        }
+
+        return game;
     }
 }
