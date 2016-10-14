@@ -1,0 +1,61 @@
+- var myInfo = {game}.game.player1.stats;
+- var enemyInfo = {game}.game.player2.stats;
+- var myCastlePercent = 'width:'+ myInfo.castle.valor +'%;'; //TODO: entender como atualizar a tela (var sendo utilizada apenas 1x)
+- var myWallPercent = 'width:'+ myInfo.wall.valor +'%;';
+- var enemyCastlePercent = 'width:'+ enemyInfo.castle.valor +'%;';
+- var enemyWallPercent = 'width:'+ enemyInfo.wall.valor +'%;';
+div(class='container-fluid')
+  div(class='row')
+    div(class='col-lg-16')
+      
+      div#my-info(class='col-lg-6')
+        div(class='panel panel-default')
+          div(class='panel-heading') Você #[button#btnPass(type='submit' class='btn btn-success btn-xs' style='float: right;') Passar a vez]
+          div(class='panel-body')
+            div(class='progress')
+              div#my-castle(class='progress-bar progress-bar-success progress-bar-striped' role='progressbar' aria-valuenow='50' 
+                            aria-valuemin='0' aria-valuemax='100' style=myCastlePercent) !{myInfo.castle.valor}
+            div(class='progress')    
+              div#my-wall(class='progress-bar progress-bar-warning progress-bar-striped' role='progressbar' aria-valuenow='0' 
+                            aria-valuemin='0' aria-valuemax='100' stlye=myWallPercent) !{myInfo.wall.valor}
+            div(class='col-lg-4')
+              div(class='panel')
+                ul(class='list-group')
+                  li(class='list-group-item list-group-item-info') !{myInfo.mages.nome} #[span#my-mages(class='badge' ) !{myInfo.mages.valor}]
+                  li(class='list-group-item list-group-item-info') !{myInfo.crystals.nome} #[span#my-crystals(class='badge') !{myInfo.crystals.valor}]
+            div(class='col-lg-4')
+              div(class='panel')
+                ul(class='list-group')
+                  li(class='list-group-item list-group-item-info') !{myInfo.soldiers.nome} #[span#my-soldiers(class='badge') !{myInfo.soldiers.valor}]
+                  li(class='list-group-item list-group-item-info') !{myInfo.weapons.nome} #[span#my-weapons(class='badge') !{myInfo.weapons.valor}]
+            div(class='col-lg-4')
+              div(class='panel')
+                ul(class='list-group')
+                  li(class='list-group-item list-group-item-info') !{myInfo.constructors.nome} #[span#my-constructors(class='badge') !{myInfo.constructors.valor}]
+                  li(class='list-group-item list-group-item-info') !{myInfo.bricks.nome} #[span#my-bricks(class='badge') !{myInfo.bricks.valor}]
+
+      div#enemy-info(class='col-lg-6')
+        div(class='panel panel-default')
+          div(class='panel-heading') Oponente
+          div(class='panel-body')
+            div(class='progress')    
+              div#enemy-castle(class='progress-bar progress-bar-success progress-bar-striped' role='progressbar' aria-valuenow='50' 
+                            aria-valuemin='0' aria-valuemax='100' style=enemyCastlePercent) !{enemyInfo.castle.valor}
+            div(class='progress')    
+              div#enemy-wall(class='progress-bar progress-bar-warning progress-bar-striped' role='progressbar' aria-valuenow='0' 
+                            aria-valuemin='0' aria-valuemax='100' style=enemyWallPercent) !{enemyInfo.wall.valor}
+            div(class='col-lg-4')
+              div(class='panel')
+                ul(class='list-group')
+                  li(class='list-group-item list-group-item-danger') !{enemyInfo.mages.nome} #[span#enemy-mages(class='badge' ) !{enemyInfo.mages.valor}]
+                  li(class='list-group-item list-group-item-danger') !{enemyInfo.crystals.nome} #[span#enemy-crystals(class='badge') !{enemyInfo.crystals.valor}]
+            div(class='col-lg-4')
+              div(class='panel')
+                ul(class='list-group')
+                  li(class='list-group-item list-group-item-danger') !{enemyInfo.soldiers.nome} #[span#enemy-soldiers(class='badge') !{enemyInfo.soldiers.valor}]
+                  li(class='list-group-item list-group-item-danger') !{enemyInfo.weapons.nome} #[span#enemy-weapons(class='badge') !{enemyInfo.weapons.valor}]
+            div(class='col-lg-4')
+              div(class='panel')
+                ul(class='list-group')
+                  li(class='list-group-item list-group-item-danger') !{enemyInfo.constructors.nome} #[span#enemy-constructors(class='badge') !{enemyInfo.constructors.valor}]
+                  li(class='list-group-item list-group-item-danger') !{enemyInfo.bricks.nome} #[span#enemy-bricks(class='badge') !{enemyInfo.bricks.valor}]

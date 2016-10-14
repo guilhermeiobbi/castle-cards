@@ -1,4 +1,4 @@
-div#winModal(class='modal fade bs-example-modal-sm' tabindex='-1' role='dialog')
+div#win-modal(class='modal fade bs-example-modal-sm' tabindex='-1' role='dialog')
   div(class='modal-dialog' role='document')
     div(class='modal-content')
       div(class='modal-header')
@@ -10,3 +10,17 @@ div#winModal(class='modal fade bs-example-modal-sm' tabindex='-1' role='dialog')
       div(class='modal-footer')
         button(type='button' class='btn btn-default' data-dismiss='modal') Fechar
         button#btnNewGame(type='button' class='btn btn-primary') Novo jogo
+  
+div#wait-turn(class='modal fade bs-example-modal-sm' data-backdrop='static' data-keyboard='false' role='dialog')
+  div(class='modal-dialog modal-sm' role='document')
+    div(class='modal-content')
+      div(class='modal-body')
+        div(class='form-group text-center')
+          h2(for='recipient-name' class='control-label') Aguarde seu turno!
+
+div#wait-players(class='modal fade bs-example-modal-sm' data-backdrop='static' data-keyboard='false' role='dialog')
+  div(class='modal-dialog modal-sm' role='document')
+    div(class='modal-content')
+      div(class='modal-body')
+        div(class='form-group text-center')
+          h2(for='recipient-name' class='control-label') Aguarde outros jogadores!
