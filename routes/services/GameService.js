@@ -4,11 +4,11 @@ function Stats() {
     this.muro = {nome: 'Muro', valor: 0};
     this.castelo = {nome: 'Castelo', valor: 50};
     this.magos = {nome: 'Mago', valor: 1},
-    this.cristais = {nome: 'Cristal', valor: 50},
+    this.cristais = {nome: 'Cristal', valor: 0},
     this.soldados = {nome: 'Soldado', valor: 1},
-    this.armas = {nome: 'Armas', valor: 50},
+    this.armas = {nome: 'Armas', valor: 0},
     this.construtores = {nome: 'Construtor', valor: 1},
-    this.tijolos = {nome: 'Tijolo', valor: 50},
+    this.tijolos = {nome: 'Tijolo', valor: 0},
     this.producao = 'normal'
     return this;
 }
