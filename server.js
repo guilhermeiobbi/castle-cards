@@ -119,7 +119,8 @@ function isPlayerOne(id) {
 /**
  * Server init
  */
-const PORT = 8000;
-server.listen(PORT, function () {
-  console.log('Server listening on PORT', PORT);
+app.set('port', (process.env.PORT || 8000));
+
+server.listen(app.get('port'), function () {
+  console.log('Server listening on PORT', app.get('port'));
 });
