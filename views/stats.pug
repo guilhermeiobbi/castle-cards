@@ -1,61 +1,61 @@
 - var myInfo = {game}.game.player1.stats;
 - var enemyInfo = {game}.game.player2.stats;
-- var myCastlePercent = 'width:'+ myInfo.castle.valor +'%;'; //TODO: entender como atualizar a tela (var sendo utilizada apenas 1x)
-- var myWallPercent = 'width:'+ myInfo.wall.valor +'%;';
-- var enemyCastlePercent = 'width:'+ enemyInfo.castle.valor +'%;';
-- var enemyWallPercent = 'width:'+ enemyInfo.wall.valor +'%;';
+- var myCastlePercent = 'width:'+ myInfo.castelo.valor +'%;'; //TODO: entender como atualizar a tela (var sendo utilizada apenas 1x)
+- var myWallPercent = 'width:'+ myInfo.muro.valor +'%;';
+- var enemyCastlePercent = 'width:'+ enemyInfo.castelo.valor +'%;';
+- var enemyWallPercent = 'width:'+ enemyInfo.muro.valor +'%;';
 div(class='container-fluid')
   div(class='row')
     div(class='col-lg-16')
       
       div#my-info(class='col-lg-6')
         div(class='panel panel-default')
-          div(class='panel-heading') Você #[button#btnPass(type='submit' class='btn btn-success btn-xs' style='float: right;') Passar a vez]
+          div(class='panel-heading') #[p(id='player1' style='font-size: 18px !important;') Jogador 1 #[button#btn-pass-player1(class='hidden' type='submit' class='btn btn-success btn-xs' style='float: right;') Passar a vez]] 
           div(class='panel-body')
             div(class='progress')
-              div#my-castle(class='progress-bar progress-bar-success progress-bar-striped' role='progressbar' aria-valuenow='50' 
-                            aria-valuemin='0' aria-valuemax='100' style=myCastlePercent) !{myInfo.castle.valor}
+              div#my-castelo(class='progress-bar progress-bar-success progress-bar-striped' role='progressbar' aria-valuenow='50' 
+                            aria-valuemin='0' aria-valuemax='100' style=myCastlePercent) !{myInfo.castelo.valor}
             div(class='progress')    
-              div#my-wall(class='progress-bar progress-bar-warning progress-bar-striped' role='progressbar' aria-valuenow='0' 
-                            aria-valuemin='0' aria-valuemax='100' stlye=myWallPercent) !{myInfo.wall.valor}
+              div#my-muro(class='progress-bar progress-bar-warning progress-bar-striped' role='progressbar' aria-valuenow='0' 
+                            aria-valuemin='0' aria-valuemax='100' style=myWallPercent) !{myInfo.muro.valor}
             div(class='col-lg-4')
               div(class='panel')
                 ul(class='list-group')
-                  li(class='list-group-item list-group-item-info') !{myInfo.mages.nome} #[span#my-mages(class='badge' ) !{myInfo.mages.valor}]
-                  li(class='list-group-item list-group-item-info') !{myInfo.crystals.nome} #[span#my-crystals(class='badge') !{myInfo.crystals.valor}]
+                  li(class='list-group-item list-group-item-info') !{myInfo.magos.nome} #[span#my-magos(class='badge' ) !{myInfo.magos.valor}]
+                  li(class='list-group-item list-group-item-info') !{myInfo.cristais.nome} #[span#my-cristais(class='badge') !{myInfo.cristais.valor}]
             div(class='col-lg-4')
               div(class='panel')
                 ul(class='list-group')
-                  li(class='list-group-item list-group-item-info') !{myInfo.soldiers.nome} #[span#my-soldiers(class='badge') !{myInfo.soldiers.valor}]
-                  li(class='list-group-item list-group-item-info') !{myInfo.weapons.nome} #[span#my-weapons(class='badge') !{myInfo.weapons.valor}]
+                  li(class='list-group-item list-group-item-info') !{myInfo.soldados.nome} #[span#my-soldados(class='badge') !{myInfo.soldados.valor}]
+                  li(class='list-group-item list-group-item-info') !{myInfo.armas.nome} #[span#my-armas(class='badge') !{myInfo.armas.valor}]
             div(class='col-lg-4')
               div(class='panel')
                 ul(class='list-group')
-                  li(class='list-group-item list-group-item-info') !{myInfo.constructors.nome} #[span#my-constructors(class='badge') !{myInfo.constructors.valor}]
-                  li(class='list-group-item list-group-item-info') !{myInfo.bricks.nome} #[span#my-bricks(class='badge') !{myInfo.bricks.valor}]
+                  li(class='list-group-item list-group-item-info') !{myInfo.construtores.nome} #[span#my-construtores(class='badge') !{myInfo.construtores.valor}]
+                  li(class='list-group-item list-group-item-info') !{myInfo.tijolos.nome} #[span#my-tijolos(class='badge') !{myInfo.tijolos.valor}]
 
       div#enemy-info(class='col-lg-6')
         div(class='panel panel-default')
-          div(class='panel-heading') Oponente
+          div(class='panel-heading') #[p(id='player2' style='font-size: 18px !important;') Jogador 2 #[button#btn-pass-player2(class='hidden' type='submit' class='btn btn-success btn-xs' style='float: right;') Passar a vez]]
           div(class='panel-body')
             div(class='progress')    
-              div#enemy-castle(class='progress-bar progress-bar-success progress-bar-striped' role='progressbar' aria-valuenow='50' 
-                            aria-valuemin='0' aria-valuemax='100' style=enemyCastlePercent) !{enemyInfo.castle.valor}
+              div#enemy-castelo(class='progress-bar progress-bar-success progress-bar-striped' role='progressbar' aria-valuenow='50' 
+                            aria-valuemin='0' aria-valuemax='100' style=enemyCastlePercent) !{enemyInfo.castelo.valor}
             div(class='progress')    
-              div#enemy-wall(class='progress-bar progress-bar-warning progress-bar-striped' role='progressbar' aria-valuenow='0' 
-                            aria-valuemin='0' aria-valuemax='100' style=enemyWallPercent) !{enemyInfo.wall.valor}
+              div#enemy-muro(class='progress-bar progress-bar-warning progress-bar-striped' role='progressbar' aria-valuenow='0' 
+                            aria-valuemin='0' aria-valuemax='100' style=enemyWallPercent) !{enemyInfo.muro.valor}
             div(class='col-lg-4')
               div(class='panel')
                 ul(class='list-group')
-                  li(class='list-group-item list-group-item-danger') !{enemyInfo.mages.nome} #[span#enemy-mages(class='badge' ) !{enemyInfo.mages.valor}]
-                  li(class='list-group-item list-group-item-danger') !{enemyInfo.crystals.nome} #[span#enemy-crystals(class='badge') !{enemyInfo.crystals.valor}]
+                  li(class='list-group-item list-group-item-danger') !{enemyInfo.magos.nome} #[span#enemy-magos(class='badge' ) !{enemyInfo.magos.valor}]
+                  li(class='list-group-item list-group-item-danger') !{enemyInfo.cristais.nome} #[span#enemy-cristais(class='badge') !{enemyInfo.cristais.valor}]
             div(class='col-lg-4')
               div(class='panel')
                 ul(class='list-group')
-                  li(class='list-group-item list-group-item-danger') !{enemyInfo.soldiers.nome} #[span#enemy-soldiers(class='badge') !{enemyInfo.soldiers.valor}]
-                  li(class='list-group-item list-group-item-danger') !{enemyInfo.weapons.nome} #[span#enemy-weapons(class='badge') !{enemyInfo.weapons.valor}]
+                  li(class='list-group-item list-group-item-danger') !{enemyInfo.soldados.nome} #[span#enemy-soldados(class='badge') !{enemyInfo.soldados.valor}]
+                  li(class='list-group-item list-group-item-danger') !{enemyInfo.armas.nome} #[span#enemy-armas(class='badge') !{enemyInfo.armas.valor}]
             div(class='col-lg-4')
               div(class='panel')
                 ul(class='list-group')
-                  li(class='list-group-item list-group-item-danger') !{enemyInfo.constructors.nome} #[span#enemy-constructors(class='badge') !{enemyInfo.constructors.valor}]
-                  li(class='list-group-item list-group-item-danger') !{enemyInfo.bricks.nome} #[span#enemy-bricks(class='badge') !{enemyInfo.bricks.valor}]
+                  li(class='list-group-item list-group-item-danger') !{enemyInfo.construtores.nome} #[span#enemy-construtores(class='badge') !{enemyInfo.construtores.valor}]
+                  li(class='list-group-item list-group-item-danger') !{enemyInfo.tijolos.nome} #[span#enemy-tijolos(class='badge') !{enemyInfo.tijolos.valor}]

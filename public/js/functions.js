@@ -7,13 +7,20 @@ $(function () {
         window.location.reload(false);
     });
 
-    $('#btnPass').click(function() {
-        console.log(socket.id)
+    $('#btn-pass-player1').click(function() {
         socket.emit('pass-turn', socket.id);
     });
 
-    socket.on('game-start', function() {
+    $('#btn-pass-player2').click(function() {
+        socket.emit('pass-turn', socket.id);
+    });
+
+    socket.on('game-start', function(data) {
         $('#wait-players').modal('hide');
+        if(data != null) {
+            $('#'+data.jogador).addClass('label label-primary');
+            $('#btn-pass-'+data.jogador).removeClass('hidden');
+        }
     });
 
     socket.on('wait-players', function() {
@@ -24,12 +31,24 @@ $(function () {
         $('#wait-turn').modal('hide');
     });
 
-    socket.on('lock-turn', function() {
+    socket.on('lock-turn', function(data) {
         $('#wait-turn').modal('show');
+        if(data != null) {
+            $('#'+data.jogador).addClass('label label-primary');
+            $('#btn-pass-'+data.jogador).removeClass('hidden');
+        }
+    });
+
+    socket.on('you-win', function() {
+        $('#win-modal').modal();
+    });
+
+    socket.on('you-lose', function() {
+        $('#wait-turn').modal('hide');
+        $('#lose-modal').modal();
     });
 
     socket.on('update', function(data){
-        console.log('Recebido:' + JSON.stringify(data));
         if(data != null) {
             for (var tar in data) {
                 var target
@@ -38,32 +57,37 @@ $(function () {
                 } else {
                     target = 'enemy-';
                 }
-                console.log('Castelo '+tar+': ' + data[tar].stats.castle.valor);
                 for (var item in data[tar].stats) {
                     var id = '#'+target+item;
                     $(id).text(data[tar].stats[item].valor);
                     
-                    if(item == 'castle' || item == 'wall') {
+                    if(item == 'castelo' || item == 'muro') {
                         var percent = $(id).width() / $(id).parent().width() * 100;
                         $(id).width(percent - (percent - data[tar].stats[item].valor) + '%');
                     }
                 }
             }
-            // TODO: Colocar a verificacao em um listener (doc ready)
-            if($('#my-castle').text() >= 100 || $('#enemy-castle').text() <= 0) {
-                $('#win-modal').modal();
-            }
         }
     });
+
 });
 
 function playCard(btn) {
+    $(btn).attr('disabled', 'disabled');
     var idCarta = $(btn).attr('for');
-    console.log('btn: '+ $(btn) + ', id: '+ idCarta);
+    var idComponent = $(btn).attr('id');
     socket.emit('play-card', idCarta);
     socket.on('invalid', function(){
         $(btn).popover('toggle');
-         btn = null;
+        btn = null;
+        return;
     });
-   
+    
+    socket.on('new-card', function(data) {
+        $('#div'+idComponent).fadeOut(900, function() {
+            $('#cartas').append(data).fadeIn(900);
+            $('#div'+idComponent).remove();
+        });
+        socket.emit('pass-turn', socket.id);
+    });
 }

@@ -12,7 +12,7 @@ var io         = require('socket.io')(server);
  */
 var api   = require('./routes/api');
 var index = require('./routes/index');
-var game  = require('./routes/services/game');
+var gameService  = require('./routes/services/GameService');
 
 /**
  * JSON support definitions
@@ -21,9 +21,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 /**
- * Pug 
+ * Pug settings
  */
 app.set('view engine', 'pug');
+var pug = require('pug');
+var geraComponenteCarta = pug.compileFile('views/cards.pug');
 
 /**
  * Routes
@@ -48,36 +50,49 @@ io.on('connection', function(socket){
   arr.push(socket.id);
   
   if(arr.length > 1) {
-    io.emit('game-start');
-    started = true;
     player1 = arr[0];
     player2 = arr[1];
+    
     players[player1] = 'player1';
     players[player2] = 'player2';
-    socket.emit('lock-turn');
+    
+    io.to(player1).emit('game-start', {'jogador': 'player1'});
+    socket.emit('lock-turn', {'jogador': 'player2'});
   }
   if(arr.length <= 1) {
     io.emit('wait-players');
   }
   
-  // console.log(arr);
-  // console.log('Jogando sozinho: '+(arr.length<=1));
-
   socket.on('play-card', function(idCarta){
     var player = players[socket.id];
-    console.log('Usuario: '+player+' utilizou a Carta: '+idCarta);
-    if(game.hasResources(idCarta, player)) {
-      var data = game.usarCarta(idCarta, player);
+    if(gameService.hasResources(idCarta, player)) {
+      var data = gameService.usarCarta(idCarta, player);
+
+      if(gameService.hasAWinner()) {
+        if(gameService.isPlayerOneWinner()) {
+          io.to(player1).emit('you-win');
+          io.to(player2).emit('you-lose');
+        } else {
+          io.to(player1).emit('you-lose');
+          io.to(player2).emit('you-win');
+        }
+        return;
+      }
+      
+      var novaCarta = gameService.pegarNovaCarta();
+      var obj = {cards: JSON.parse(JSON.stringify(novaCarta))};
+      socket.emit('new-card', geraComponenteCarta(obj));
+      
       socket.emit('update', data);
+
     } else {
+      console.log('Jogador '+player+' sem recursos para a carta.');
       socket.emit('invalid', idCarta);
     }
   });
 
   socket.on('pass-turn', function() {
-    var gameInfo = game.passaTurno(players[socket.id]);
-    // console.log('Usuario: '+socket.id+' passou a vez.');
-    // var index = arr.indexOf(socket.id);
+    var gameInfo = gameService.passaTurno(players[socket.id]);
     socket.emit('lock-turn');
     if(isPlayerOne(socket.id)) {
       io.to(player2).emit('play-turn');  

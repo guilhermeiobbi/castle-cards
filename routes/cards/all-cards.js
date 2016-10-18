@@ -43,7 +43,7 @@ var cards =
     'carroca' : {
         'id' : '005',
         'alvo' : {
-        'alvo1' : 'castelo_inimigo',
+        'alvo1' : 'castelo', // Castelo Inimigo
         'alvo2' : 'castelo'
         },
         'alvo_qtd' : {
@@ -118,7 +118,7 @@ var cards =
     },
     'construtor' : {
         'id' : '012',
-        'alvo' : 'construtor',
+        'alvo' : 'construtores',
         'alvo_qtd' : 1,
         'custo' : 'tijolos',
         'custo_qtd' : 8,
@@ -168,7 +168,7 @@ var cards =
     },
     'emboscada' : {
         'id' : '017',
-        'alvo' : 'castelo_inimigo',
+        'alvo' : 'castelo', // Castelo Inimigo
         'alvo_qtd' : 15,
         'custo' : 'armas',
         'custo_qtd' : 20,
@@ -179,9 +179,9 @@ var cards =
     'escola' : {
         'id' : '018',
         'alvo' : {
-        'alvo1' : 'soldado',
-        'alvo2' : 'mago',
-        'alvo3' : 'construtor'
+        'alvo1' : 'soldados',
+        'alvo2' : 'magos',
+        'alvo3' : 'construtores'
         },
         'alvo_qtd' : 1,
         'custo' : 'tijolos',
@@ -202,7 +202,7 @@ var cards =
     },
     'mago' : {
         'id' : '020',
-        'alvo' : 'mago',
+        'alvo' : 'magos',
         'alvo_qtd' : 1,
         'custo' : 'cristais',
         'custo_qtd' : 8,
@@ -268,7 +268,7 @@ var cards =
     },
     'soldado' : {
         'id' : '026',
-        'alvo' : 'soldado',
+        'alvo' : 'soldados',
         'alvo_qtd' : 1,
         'custo' : 'armas',
         'custo_qtd' : 8,

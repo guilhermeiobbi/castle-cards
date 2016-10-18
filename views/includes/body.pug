@@ -4,7 +4,10 @@ body
   block content
     block stats
       include ../stats.pug
-    block cards
+    div(class='col-lg-10 container-fluid cardboard')
+      div(class='row')
+        div#cartas(class='col-lg-offset-2')
+          block cards
     block modals
       include ../modals.pug
   script(src='/socket.io/socket.io.js')

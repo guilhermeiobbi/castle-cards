@@ -10,6 +10,19 @@ div#win-modal(class='modal fade bs-example-modal-sm' tabindex='-1' role='dialog'
       div(class='modal-footer')
         button(type='button' class='btn btn-default' data-dismiss='modal') Fechar
         button#btnNewGame(type='button' class='btn btn-primary') Novo jogo
+
+div#lose-modal(class='modal fade bs-example-modal-sm' tabindex='-1' role='dialog')
+  div(class='modal-dialog' role='document')
+    div(class='modal-content')
+      div(class='modal-header')
+        button(type='button' class='close' data-dismiss='modal' aria-label='Close') #[span(aria-hidden='true') &times;] 
+        h4(class='modal-title' id='exampleModalLabel') DERROTA!
+      div(class='modal-body')
+        div(class='form-group text-center')
+          h2(for='recipient-name' class='control-label') Você perdeu!
+      div(class='modal-footer')
+        button(type='button' class='btn btn-default' data-dismiss='modal') Fechar
+        button#btnNewGame(type='button' class='btn btn-primary') Novo jogo
   
 div#wait-turn(class='modal fade bs-example-modal-sm' data-backdrop='static' data-keyboard='false' role='dialog')
   div(class='modal-dialog modal-sm' role='document')
