@@ -15,12 +15,15 @@ $(function () {
         socket.emit('pass-turn', socket.id);
     });
 
+    socket.on('wait-game', function() {
+        $('#wait-game').modal('show');
+    });
+
     socket.on('game-start', function(data) {
-        $('#wait-players').modal('hide');
+        $('.modal').modal('hide');
         if(data != null) {
             $('#lbl-'+data.me).text('Você');
             $('#lbl-'+data.enemy).text('Oponente');
-            // $('#'+data.jogador).addClass('label label-primary');
             $('#btn-pass-'+data.me).removeClass('hidden');
         }
     });

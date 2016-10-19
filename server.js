@@ -49,18 +49,21 @@ io.on('connection', function(socket){
   console.log('New user connected. ID: '+ socket.id);
   arr.push(socket.id);
   
-  if(arr.length > 1) {
+  if(arr.length <= 1) {
+    io.emit('wait-players');
+  } else if(arr.length == 2) {
     player1 = arr[0];
     player2 = arr[1];
     
     players[player1] = 'player1';
     players[player2] = 'player2';
+
     
     io.to(player1).emit('game-start', {'me': 'player1', 'enemy': 'player2'});
     socket.emit('lock-turn', {'me': 'player2', 'enemy': 'player1'});
-  }
-  if(arr.length <= 1) {
-    io.emit('wait-players');
+  } else {
+    socket.join('wait-room');
+    socket.emit('wait-game');
   }
   
   socket.on('play-card', function(idCarta){
@@ -104,6 +107,7 @@ io.on('connection', function(socket){
 
   socket.on('disconnect', function() {
     console.log('User disconnected. ID: '+ socket.id);
+    players = {};
     var index = arr.indexOf(socket.id);
     arr.splice(index, 1);
     if(arr.length <= 1) {
