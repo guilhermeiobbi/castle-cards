@@ -56,8 +56,8 @@ io.on('connection', function(socket){
     players[player1] = 'player1';
     players[player2] = 'player2';
     
-    io.to(player1).emit('game-start', {'jogador': 'player1'});
-    socket.emit('lock-turn', {'jogador': 'player2'});
+    io.to(player1).emit('game-start', {'me': 'player1', 'enemy': 'player2'});
+    socket.emit('lock-turn', {'me': 'player2', 'enemy': 'player1'});
   }
   if(arr.length <= 1) {
     io.emit('wait-players');

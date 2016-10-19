@@ -10,7 +10,8 @@ div(class='container-fluid')
       
       div#my-info(class='col-lg-6')
         div(class='panel panel-default')
-          div(class='panel-heading') #[p(id='player1' style='font-size: 18px !important;') Jogador 1 #[button#btn-pass-player1(class='hidden' type='submit' class='btn btn-success btn-xs' style='float: right;') Passar a vez]] 
+          div(class='panel-heading')
+            h4(style='margin-top: 5px; margin-bottom: 5px;') #[span#lbl-player1 Jogador 1] #[button#btn-pass-player1(class='hidden' type='submit' class='btn btn-success btn-xs' style='float: right;') Passar a vez]
           div(class='panel-body')
             div(class='progress')
               div#my-castelo(class='progress-bar progress-bar-success progress-bar-striped' role='progressbar' aria-valuenow='50' 
@@ -36,7 +37,8 @@ div(class='container-fluid')
 
       div#enemy-info(class='col-lg-6')
         div(class='panel panel-default')
-          div(class='panel-heading') #[p(id='player2' style='font-size: 18px !important;') Jogador 2 #[button#btn-pass-player2(class='hidden' type='submit' class='btn btn-success btn-xs' style='float: right;') Passar a vez]]
+          div(class='panel-heading') 
+            h4(style='margin-top: 5px; margin-bottom: 5px;') #[span#lbl-player2 Jogador 2] #[button#btn-pass-player2(class='hidden' type='submit' class='btn btn-success btn-xs' style='float: right;') Passar a vez]
           div(class='panel-body')
             div(class='progress')    
               div#enemy-castelo(class='progress-bar progress-bar-success progress-bar-striped' role='progressbar' aria-valuenow='50' 

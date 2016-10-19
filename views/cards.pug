@@ -10,7 +10,6 @@ block cards
                 p(class='panel-title text-center')= carta.nome
                   |  #[span(class='glyphicon glyphicon-info-sign' aria-hidden='true' data-toggle='tooltip' data-placement='top' title=carta.descricao)]
                   | #[input#id(type='hidden' value=carta.id)]
-                  -var x = 'disabled';
                   | #[button(id=carta.id+index for=carta.id tabindex='0' onclick='playCard(this)' type='button' class='btn btn-success btn-xs' style='float: right; color: white;' data-animation='true' data-toggle='popover' data-trigger="focus" data-placement='top' data-title='Ops!' data-content='Você não possui recursos suficientes.') Usar]
               div(class='panel-body')      
                 

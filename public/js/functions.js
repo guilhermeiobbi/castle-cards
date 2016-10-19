@@ -18,8 +18,10 @@ $(function () {
     socket.on('game-start', function(data) {
         $('#wait-players').modal('hide');
         if(data != null) {
-            $('#'+data.jogador).addClass('label label-primary');
-            $('#btn-pass-'+data.jogador).removeClass('hidden');
+            $('#lbl-'+data.me).text('Você');
+            $('#lbl-'+data.enemy).text('Oponente');
+            // $('#'+data.jogador).addClass('label label-primary');
+            $('#btn-pass-'+data.me).removeClass('hidden');
         }
     });
 
@@ -34,8 +36,9 @@ $(function () {
     socket.on('lock-turn', function(data) {
         $('#wait-turn').modal('show');
         if(data != null) {
-            $('#'+data.jogador).addClass('label label-primary');
-            $('#btn-pass-'+data.jogador).removeClass('hidden');
+            $('#lbl-'+data.me).text('Você');
+            $('#lbl-'+data.enemy).text('Oponente');
+            $('#btn-pass-'+data.me).removeClass('hidden');
         }
     });
 
